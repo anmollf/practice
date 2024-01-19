@@ -7,4 +7,7 @@ def home(request):
 
 
 def hello(request):
+    context = {
+        "Name": "Anmol"
+    }
     return HttpResponse("Hello!")
