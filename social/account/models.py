@@ -1,4 +1,6 @@
 from django.db import models
+from django.contrib.auth.models import User
+
 
 # Create your models here.
 class acc(models.Model):
@@ -8,6 +10,7 @@ class acc(models.Model):
     dob = models.DateField()
     email = models.EmailField()
     photo = models.ImageField(upload_to='images/')
+    # usr = models.OneToOneField(User, on_delete= models.CASCADE, null = True, blank = True)
 
     def __str__(self):
         return self.username
