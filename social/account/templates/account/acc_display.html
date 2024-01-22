@@ -1,0 +1,114 @@
+{%load static%}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Account Page</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(to right, #4e54c8, #8f94fb);
+            margin: 0;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+
+        .account-container {
+            background-color: #fff;
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+            width: 350px;
+            max-width: 100%;
+            text-align: center;
+            position: relative;
+        }
+
+        .account-container h2 {
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .profile-pic {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            overflow: hidden;
+            background-color: #4e54c8;
+        }
+
+        .profile-pic img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .user-info {
+            text-align: left;
+            margin-bottom: 20px;
+        }
+
+        .user-info label {
+            display: block;
+            color: #555;
+            font-size: 14px;
+            margin-bottom: 5px;
+        }
+
+        .user-info span {
+            font-size: 16px;
+            color: #333;
+        }
+
+        .edit-profile-link {
+            font-size: 14px;
+            color: #4e54c8;
+            text-decoration: none;
+            margin-top: 15px;
+            display: inline-block;
+        }
+
+        .edit-profile-link:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="account-container">
+        <div class="profile-pic">
+            <!-- Replace the src attribute with the actual URL of the user's profile picture -->
+            <img src="{{Account.photo}}" alt="Profile Picture">
+        </div>
+        <h2>Account Information</h2>
+        <div class="user-info">
+            <label for="firstName">First Name:</label>
+            <span>{{ Account.fname }}</span>
+        </div>
+        <div class="user-info">
+            <label for="lastName">Last Name:</label>
+            <span>{{Account.lname}}</span>
+        </div>
+        <div class="user-info">
+            <label for="username">Username:</label>
+            <span>{{Account.username}}</span>
+        </div>
+        <div class="user-info">
+            <label for="dob">Date of Birth:</label>
+            <span>{{Account.dob}}</span>
+        </div>
+        <div class="user-info">
+            <label for="email">Email:</label>
+            <span>{{Account.email}}</span>
+        </div>
+        <a href="edit-profile.php" class="edit-profile-link">Edit Profile</a>
+    </div>
+</body>
+</html>

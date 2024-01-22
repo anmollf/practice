@@ -2,7 +2,6 @@ from django import forms
 from django.forms import ModelForm, Widget
 from .models import acc
 
-
 # class NameForm(forms.Form):
 #     firstName = forms.CharField(max_length=30, label = "First Name")
 #     lastName = forms.CharField(max_length =30, label = "Last Name")
@@ -13,7 +12,7 @@ from .models import acc
 #     dob = forms.DateField(widget=forms.DateInput(attrs={"type": "date"}))
 #     email = forms.EmailField()
 
-class AccForm(ModelForm):
+class AccForm(forms.ModelForm):
     class Meta:
         model = acc
         fields = "__all__"
