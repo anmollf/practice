@@ -60,7 +60,8 @@ class accCreate(CreateView):
         return super().form_valid(form)
     
     def get_success_url(self):
-        return f'/account/acc/{self.object.pk}/'
+        return f'/account/{self.object.pk}/'
 
 class accDetails(DetailView):
     model = acc
+    context_object_name = "Account"

@@ -23,10 +23,12 @@ class AccForm(forms.ModelForm):
             "username": "Username",
             "dob": "Date of Birth",
             "email": "Email",
-            "photo": "Profile Photo"
+            "photo": "Profile Photo",
+            "password": "Password"
         }
 
         widgets = {
-            'dob': forms.DateInput(attrs={'type': 'date'})
+            'dob': forms.DateInput(attrs={'type': 'date'}),
+            'password': forms.PasswordInput(),
         }
 

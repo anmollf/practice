@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.shortcuts import redirect
 from django.urls import reverse
 
 
@@ -7,7 +8,8 @@ from django.urls import reverse
 class acc(models.Model):
     fname = models.CharField(max_length = 30)
     lname = models.CharField(max_length = 30)
-    username = models.CharField(max_length = 20)
+    username = models.CharField(max_length = 20, unique = True)
+    password = models.CharField(max_length = 40)
     dob = models.DateField()
     email = models.EmailField()
     photo = models.ImageField(upload_to='images/')
@@ -17,4 +19,4 @@ class acc(models.Model):
         return str(self.id)
     
     def get_absolute_url(self):
-        return reverse("acc-details", kwargs={"pk": self.pk})
+        return reverse("account/", kwargs={"pk": self.pk})
