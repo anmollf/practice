@@ -8,7 +8,7 @@ from django.urls import reverse
 class acc(models.Model):
     fname = models.CharField(max_length = 30)
     lname = models.CharField(max_length = 30)
-    username = models.CharField(max_length = 20, unique = True)
+    username = models.CharField(max_length = 20, unique = True, primary_key = True)
     password = models.CharField(max_length = 40)
     dob = models.DateField()
     email = models.EmailField()
@@ -17,7 +17,7 @@ class acc(models.Model):
 
 
     def __str__(self):
-        return str(self.id)
+        return str(self.username)
     
     def get_absolute_url(self):
         return reverse("account/", kwargs={"pk": self.pk})

@@ -1,13 +1,16 @@
 from django.conf import settings
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from django.shortcuts import redirect, render
 from django.urls import reverse_lazy
+
+from .serializers import AccountSerializer
 from .forms import AccForm
 from .models import acc
 from django.contrib.auth.models import User
 from django.views.generic import CreateView
 from django.views.generic.detail import DetailView
 import django.contrib.auth
+from rest_framework.decorators import api_view
 
 # Create your views here.
 def Login(request):
@@ -52,6 +55,13 @@ def Login(request):
     #     frm = AccForm()
     # return render(request,'account/signup.html',{"form":frm})
 
+@api_view(["GET"])
+def getList(request):
+    accounts = acc.objects.all()
+    accser = AccountSerializer(accounts, many = True)
+    return JsonResponse({"Data": accser.data})
+
+
 class accCreate(CreateView):
     model = acc
     # fields = ['fname','lname','username','email','password','dob','photo',]
@@ -72,3 +82,4 @@ class accCreate(CreateView):
 class accDetails(DetailView):
     model = acc
     context_object_name = "Account"
+
