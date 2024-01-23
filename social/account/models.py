@@ -13,7 +13,8 @@ class acc(models.Model):
     dob = models.DateField()
     email = models.EmailField()
     photo = models.ImageField(upload_to='images/')
-    # usr = models.OneToOneField(User, on_delete= models.CASCADE, null = True, blank = True)
+    usr = models.OneToOneField(User, on_delete= models.CASCADE, blank = True, null = True)
+
 
     def __str__(self):
         return str(self.id)

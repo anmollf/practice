@@ -7,6 +7,7 @@ from .models import acc
 from django.contrib.auth.models import User
 from django.views.generic import CreateView
 from django.views.generic.detail import DetailView
+import django.contrib.auth
 
 # Create your views here.
 def Login(request):
@@ -53,13 +54,19 @@ def Login(request):
 
 class accCreate(CreateView):
     model = acc
-    # fields = "__all__"
+    # fields = ['fname','lname','username','email','password','dob','photo',]
     form_class = AccForm
 
     def form_valid(self, form):
         return super().form_valid(form)
     
     def get_success_url(self):
+        u = User.objects.create_user(username=self.object.username,password=self.object.password,email=self.object.email)
+        print(self.object.usr)
+        u.save()
+        self.object.usr = u
+        print(self.object.usr)
+        self.object.save()
         return f'/account/{self.object.pk}/'
 
 class accDetails(DetailView):

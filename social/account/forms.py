@@ -15,7 +15,7 @@ from .models import acc
 class AccForm(forms.ModelForm):
     class Meta:
         model = acc
-        fields = "__all__"
+        fields = ['fname','lname','username','email','password','dob','photo',]
 
         labels = {
             "fname": "First Name",
