@@ -1,7 +1,8 @@
 from django.conf import settings
-from django.http import HttpResponse, JsonResponse
+from django.http import Http404, HttpResponse, JsonResponse
 from django.shortcuts import redirect, render
 from django.urls import reverse_lazy
+from requests import Response
 
 from .serializers import AccountSerializer
 from .forms import AccForm
@@ -61,6 +62,29 @@ def getList(request):
     accser = AccountSerializer(accounts, many = True)
     return JsonResponse({"Data": accser.data})
 
+@api_view(["GET"])
+def getDetail(request,id):
+    print(request.GET.get('username'))
+    try:
+        if id == ' ':
+           key = request.GET.get('username')
+        else:
+            key = id
+        a = acc.objects.filter(pk = key)
+        # print(a)
+        ser = AccountSerializer(a,many=True)
+        return JsonResponse({"Data": ser.data})
+    except a.DoesNotExist:
+        raise Http404
+
+@api_view(["POST"])    
+def postDetail(request):
+    # print(request.data)
+    ser = AccountSerializer(data=request.data)
+    if ser.is_valid():
+        ser.save()
+        return JsonResponse(ser.data)
+
 
 class accCreate(CreateView):
     model = acc
@@ -72,12 +96,17 @@ class accCreate(CreateView):
     
     def get_success_url(self):
         u = User.objects.create_user(username=self.object.username,password=self.object.password,email=self.object.email)
-        print(self.object.usr)
+        # print(self.object.usr)
         u.save()
         self.object.usr = u
-        print(self.object.usr)
+        # print(self.object.usr)
         self.object.save()
-        return f'/account/{self.object.pk}/'
+        # ser = AccountSerializer(data=self.object)
+        # if ser.is_valid():
+        #     ser.save()
+        # return JsonResponse(ser.data)
+
+        return f'/detail/{self.object.pk}/'
 
 class accDetails(DetailView):
     model = acc
