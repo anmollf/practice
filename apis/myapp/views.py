@@ -5,6 +5,8 @@ from rest_framework.decorators import api_view
 from .models import Employee
 from .serializers import EmployeeSerializer
 from rest_framework.views import APIView
+from rest_framework.authentication import BasicAuthentication, SessionAuthentication
+from rest_framework.permissions import IsAuthenticated, IsAdminUser
 
 # Create your views here.
 def Hello(request):
@@ -67,6 +69,9 @@ class listAll(APIView):
         return ser.error_messages
     
 class useAPI(APIView):
+
+    authentication_classes = [SessionAuthentication,BasicAuthentication]
+    permission_classes = [IsAuthenticated]
 
     def get_object(self,id):
         try:
